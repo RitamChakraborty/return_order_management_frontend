@@ -11,16 +11,66 @@
   </header>
   <section>
     <article>
-      <header>
-        <table>
-          <caption>Current Orders</caption>
-        </table>
-      </header>
+      <div class="orders">
+        <header>
+          Current Orders
+        </header>
+        <div *ngIf="currentOrders.length > 0">
+          <table>
+            <thead>
+            <tr>
+              <th>Order Id</th>
+              <th>Component</th>
+              <th>Quantity</th>
+              <th>Cost</th>
+              <th>Delivery Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let order of currentOrders">
+              <td>{{order?.orderId}}</td>
+              <td>{{order?.processRequest?.componentName}}</td>
+              <td>{{order?.processRequest?.quantity}}</td>
+              <td>{{getTotalCost(order)}}</td>
+              <td>{{order?.processResponse?.dateOfDelivery | date: 'dd/MM/yyyy'}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="currentOrders.length === 0">
+          No current order
+        </div>
+      </div>
     </article>
     <article>
-      <table>
-        <caption>Past Orders</caption>
-      </table>
+      <div class="orders">
+        <header>Past Orders</header>
+        <div *ngIf="pastOrders.length > 0">
+          <table>
+            <thead>
+            <tr>
+              <th>Order Id</th>
+              <th>Component</th>
+              <th>Quantity</th>
+              <th>Cost</th>
+              <th>Delivery Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let order of pastOrders">
+              <td>{{order?.orderId}}</td>
+              <td>{{order?.processRequest?.componentName}}</td>
+              <td>{{order?.processRequest?.quantity}}</td>
+              <td>{{getTotalCost(order)}}</td>
+              <td>{{order?.processResponse?.dateOfDelivery}} | date</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="pastOrders.length === 0">
+          No past order
+        </div>
+      </div>
     </article>
   </section>
 </div>
