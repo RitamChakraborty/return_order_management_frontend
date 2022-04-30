@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  handleLogin() {
-    alert('login');
+  handleLogin(e: Event) {
+    e.preventDefault();
   }
 }
