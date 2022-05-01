@@ -14,7 +14,7 @@ export class LoginService {
 
   login(username: string, password: string): Observable<JWTToken> {
     let body = new URLSearchParams();
-    body.set('user', username);
+    body.set('username', username);
     body.set('password', password);
     let options = {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
