@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {HomeComponent} from './view/home/home.component';
 import {HttpClientModule} from "@angular/common/http";
 import {LoginComponent} from './view/login/login.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {LoginComponent} from './view/login/login.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
