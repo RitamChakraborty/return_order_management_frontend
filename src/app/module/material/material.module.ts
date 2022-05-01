@@ -5,6 +5,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatCardModule} from "@angular/material/card";
 import {MatDividerModule} from "@angular/material/divider";
+import {MatTabsModule} from "@angular/material/tabs";
 
 const MaterialComponents = [
   MatButtonModule,
@@ -13,6 +14,7 @@ const MaterialComponents = [
   MatSidenavModule,
   MatCardModule,
   MatDividerModule,
+  MatTabsModule
 ];
 
 @NgModule({

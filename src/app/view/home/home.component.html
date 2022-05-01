@@ -17,30 +17,12 @@
         </button>
         <span>Return Order Management</span>
       </mat-toolbar>
-      <button (click)="newOrder()" class="new-order" mat-fab>
-        <mat-icon>add</mat-icon>
-      </button>
     </p>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-
-<div class="home">
-  <header>
-    <div class="heading">
-      <h3>Welcome,</h3>
-      <h2>{{firstName}}</h2>
-    </div>
-    <nav>
-      <button>Create Order</button>
-      <button>Log Out</button>
-    </nav>
-  </header>
-  <section>
-    <article>
-      <div class="orders">
-        <header>
-          Current Orders
-        </header>
+    <button (click)="newOrder()" class="new-order" mat-fab>
+      <mat-icon>add</mat-icon>
+    </button>
+    <mat-tab-group>
+      <mat-tab label="Current Orders">
         <div *ngIf="currentOrders.length > 0">
           <table>
             <thead>
@@ -66,11 +48,8 @@
         <div *ngIf="currentOrders.length === 0">
           No current order
         </div>
-      </div>
-    </article>
-    <article>
-      <div class="orders">
-        <header>Past Orders</header>
+      </mat-tab>
+      <mat-tab label="Past Orders">
         <div *ngIf="pastOrders.length > 0">
           <table>
             <thead>
@@ -96,7 +75,7 @@
         <div *ngIf="pastOrders.length === 0">
           No past order
         </div>
-      </div>
-    </article>
-  </section>
-</div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-sidenav-content>
+</mat-sidenav-container>
