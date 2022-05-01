@@ -3,7 +3,7 @@ mat-sidenav-container {
 }
 
 mat-sidenav {
-  width: min(80%, 300px);
+  width: min(70%, 300px);
   background-color: #efefef;
 
   .user-account {
@@ -26,6 +26,17 @@ mat-sidenav {
     .account-email {
       margin-bottom: 1rem;
       color: #f1f1f1;
+    }
+  }
+
+  button {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: flex-start;
+
+    mat-icon {
+      margin-right: 1rem;
     }
   }
 }

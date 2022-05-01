@@ -8,7 +8,7 @@ import {Order} from "../../model/order";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  @Input() sidenavVisible: boolean = true;
+  @Input() sidenavVisible: boolean = false;
   firstName: string = "Ritam";
   lastName: string = "Chakraborty";
   email: string = "ritam@gmail.com";
@@ -51,5 +51,9 @@ export class HomeComponent implements OnInit {
 
   toggleSidenav() {
     this.sidenavVisible = !this.sidenavVisible;
+  }
+
+  logout() {
+
   }
 }
