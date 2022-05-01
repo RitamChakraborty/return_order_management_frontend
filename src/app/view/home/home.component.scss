@@ -40,3 +40,11 @@ mat-sidenav {
     }
   }
 }
+
+mat-sidenav-content {
+  .new-order {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+  }
+}
