@@ -1,5 +1,10 @@
 <mat-sidenav-container>
-  <mat-sidenav [(opened)]="sidenavVisible">Sidenav</mat-sidenav>
+  <mat-sidenav [(opened)]="sidenavVisible">
+    <div class="user-account">
+      <div class="account-name">{{fullName}}</div>
+      <div class="account-email">{{email}}</div>
+    </div>
+  </mat-sidenav>
   <mat-sidenav-content>
     <p>
       <mat-toolbar color="primary">

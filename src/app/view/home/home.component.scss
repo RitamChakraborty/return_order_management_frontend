@@ -3,6 +3,29 @@ mat-sidenav-container {
 }
 
 mat-sidenav {
-  padding: 1rem;
   width: min(80%, 300px);
+  background-color: #efefef;
+
+  .user-account {
+    height: 150px;
+    background-image: url(../../../assets/user-account-background.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 1rem;
+
+    .account-name {
+      margin: 0.5rem 0;
+      font-size: x-large;
+      color: #ffffff;
+    }
+
+    .account-email {
+      margin-bottom: 1rem;
+      color: #f1f1f1;
+    }
+  }
 }

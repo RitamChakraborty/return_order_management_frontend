@@ -8,8 +8,10 @@ import {Order} from "../../model/order";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  @Input() sidenavVisible: boolean = false;
-  firstName: String = "Ritam";
+  @Input() sidenavVisible: boolean = true;
+  firstName: string = "Ritam";
+  lastName: string = "Chakraborty";
+  email: string = "ritam@gmail.com";
   currentOrders: Order[] = [];
   pastOrders: Order[] = [];
 
@@ -37,6 +39,14 @@ export class HomeComponent implements OnInit {
     }
 
     return 0;
+  }
+
+  get fullName(): string {
+    return this.firstName + " " + this.lastName;
+  }
+
+  get userAccountFavLetter(): string {
+    return this.firstName[0];
   }
 
   toggleSidenav() {
