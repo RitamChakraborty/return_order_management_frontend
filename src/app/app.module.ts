@@ -8,6 +8,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {LoginComponent} from './view/login/login.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from "./module/material/material.module";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -16,11 +17,12 @@ import {MaterialModule} from "./module/material/material.module";
     LoginComponent
   ],
   imports: [
-    MaterialModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

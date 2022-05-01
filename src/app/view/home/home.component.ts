@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {OrderService} from "../../service/order-service/order.service";
 import {Order} from "../../model/order";
 
@@ -8,6 +8,7 @@ import {Order} from "../../model/order";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  @Input() sidenavVisible: boolean = false;
   firstName: String = "Ritam";
   currentOrders: Order[] = [];
   pastOrders: Order[] = [];
@@ -36,5 +37,9 @@ export class HomeComponent implements OnInit {
     }
 
     return 0;
+  }
+
+  toggleSidenav() {
+    this.sidenavVisible = !this.sidenavVisible;
   }
 }

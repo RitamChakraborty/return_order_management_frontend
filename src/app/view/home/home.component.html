@@ -1,11 +1,16 @@
-<p>
-  <mat-toolbar color="primary">
-    <button mat-icon-button>
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>Return Order Management</span>
-  </mat-toolbar>
-</p>
+<mat-sidenav-container>
+  <mat-sidenav [(opened)]="sidenavVisible">Sidenav</mat-sidenav>
+  <mat-sidenav-content>
+    <p>
+      <mat-toolbar color="primary">
+        <button (click)="toggleSidenav()" mat-icon-button>
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>Return Order Management</span>
+      </mat-toolbar>
+    </p>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
 <div class="home">
   <header>
