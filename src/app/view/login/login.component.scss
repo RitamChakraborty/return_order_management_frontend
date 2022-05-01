@@ -1,0 +1,23 @@
+mat-card {
+  width: min(350px, 80%);
+  margin: 3rem auto;
+
+  mat-card-title {
+    margin: 1rem 0 !important;
+  }
+
+  mat-card-content {
+    margin-bottom: 0 !important;
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 0.5rem !important;
+  }
+}

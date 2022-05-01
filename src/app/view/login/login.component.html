@@ -1,9 +1,24 @@
-<form (submit)="handleLogin($event)" action="#">
-  <label for="username">Email</label>
-  <input id="username" name="username" type="email">
-  <br>
-  <label for="password">Password</label>
-  <input id="password" name="password" type="password">
-  <br>
-  <input type="submit" value="Login">
-</form>
+<p>
+  <mat-toolbar class="mat-elevation-z5" color="primary">
+    <span>Return Order Management</span>
+  </mat-toolbar>
+</p>
+<mat-card class="mat-elevation-z5">
+  <mat-card-title>Login</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="loginForm!">
+      <mat-form-field appearance="outline" hideRequiredMarker>
+        <mat-label>Email</mat-label>
+        <input formControlName="username" id="username" matInput name="username" required type="email">
+      </mat-form-field>
+      <mat-form-field appearance="outline" hideRequiredMarker>
+        <mat-label>Password</mat-label>
+        <input formControlName="password" id="password" matInput name="password" required type="password">
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button color="accent" mat-flat-button>Login</button>
+    <button mat-stroked-button>Signup</button>
+  </mat-card-actions>
+</mat-card>
