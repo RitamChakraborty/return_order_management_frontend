@@ -73,9 +73,9 @@ mat-sidenav-content {
 
     .new-order {
       position: fixed;
-      transform: translate(50%, -50%);
-      bottom: 1rem;
-      right: 50%;
+      bottom: 0;
+      top: 64px;
+      transform: translate(-50%, -50%);
     }
   }
 }

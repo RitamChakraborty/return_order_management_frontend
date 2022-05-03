@@ -11,14 +11,14 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <p>
-      <mat-toolbar color="primary">
+      <mat-toolbar class="mat-elevation-z5" color="primary">
         <button (click)="toggleSidenav()" mat-icon-button>
           <mat-icon>menu</mat-icon>
         </button>
         <span>Return Order Management</span>
       </mat-toolbar>
     </p>
-    <button (click)="newOrder()" class="new-order" mat-fab>
+    <button (click)="newOrder()" class="new-order mat-elevation-z10" mat-fab matTooltip="Create new order">
       <mat-icon>add</mat-icon>
     </button>
     <mat-tab-group>
