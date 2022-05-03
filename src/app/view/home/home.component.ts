@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {OrderService} from "../../service/order-service/order.service";
 import {Order} from "../../model/order";
+import {AuthenticationService} from "../../service/authentication-service/authentication.service";
+import {User} from "../../model/user";
 
 @Component({
   selector: 'app-home',
@@ -9,17 +11,22 @@ import {Order} from "../../model/order";
 })
 export class HomeComponent implements OnInit {
   @Input() sidenavVisible: boolean = false;
-  firstName: string = "Ritam";
-  lastName: string = "Chakraborty";
-  email: string = "ritam@gmail.com";
+  firstName: string = "";
+  lastName: string = "";
+  email: string = "";
   currentOrders: Order[] = [];
   pastOrders: Order[] = [];
 
-  constructor(private orderService: OrderService) {
+  constructor(
+    private authenticationService: AuthenticationService,
+    private orderService: OrderService
+  ) {
   }
 
-  ngOnInit(): void {
-    this.getOrders();
+  get fullName(): string {
+    return this.firstName[0].toUpperCase() + this.firstName.substring(1) +
+      " " +
+      this.lastName[0].toUpperCase() + this.lastName.substring(1);
   }
 
   getOrders() {
@@ -41,8 +48,12 @@ export class HomeComponent implements OnInit {
     return 0;
   }
 
-  get fullName(): string {
-    return this.firstName + " " + this.lastName;
+  ngOnInit(): void {
+    const user: User = this.authenticationService.user;
+    this.firstName = user.firstName;
+    this.lastName = user.lastName;
+    this.email = user.email;
+    this.getOrders();
   }
 
   get userAccountFavLetter(): string {
@@ -54,7 +65,7 @@ export class HomeComponent implements OnInit {
   }
 
   logout() {
-
+    this.authenticationService.logOut();
   }
 
   newOrder() {
