@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginService} from "../../service/login-service/login.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HttpErrorResponse} from "@angular/common/http";
 import {AuthenticationService} from "../../service/authentication-service/authentication.service";
@@ -14,7 +13,6 @@ export class LoginComponent implements OnInit {
   loginError: string = '';
 
   constructor(
-    private loginService: LoginService,
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder
   ) {
@@ -30,7 +28,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 
   get username() {
@@ -43,7 +40,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.username && this.password) {
-      this.loginService
+      this.authenticationService
         .login(this.username.value, this.password.value)
         .subscribe(
           jwtToken => {

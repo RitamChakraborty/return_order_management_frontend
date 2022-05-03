@@ -5,7 +5,7 @@ import {environment} from "../../../environments/environment";
 import {User} from "../../model/user";
 import {LocalStorageService} from "../local-storage-service/local-storage.service";
 import {Router} from "@angular/router";
-import {LoginService} from "../login-service/login.service";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,6 @@ export class AuthenticationService {
   constructor(
     private httpClient: HttpClient,
     private localStorageService: LocalStorageService,
-    private loginService: LoginService,
     private router: Router
   ) {
   }
@@ -37,6 +36,21 @@ export class AuthenticationService {
 
   get user(): User {
     return this._user!;
+  }
+
+  login(username: string, password: string): Observable<JWTToken> {
+    let body = new URLSearchParams();
+    body.set('username', username);
+    body.set('password', password);
+    let options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    };
+
+    return this.httpClient.post<JWTToken>(
+      `${environment.apiUrl}/login`,
+      body.toString(),
+      options
+    );
   }
 
   authenticate(jwtToken: JWTToken) {
