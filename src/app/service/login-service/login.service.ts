@@ -19,6 +19,7 @@ export class LoginService {
     let options = {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     };
+
     return this.httpClient.post<JWTToken>(
       `${environment.apiUrl}/login`,
       body.toString(),

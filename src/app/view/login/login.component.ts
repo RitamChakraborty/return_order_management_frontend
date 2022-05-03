@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {LoginService} from "../../service/login-service/login.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HttpErrorResponse} from "@angular/common/http";
+import {AuthenticationService} from "../../service/authentication-service/authentication.service";
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
+    private authenticatinService: AuthenticationService,
     private formBuilder: FormBuilder
   ) {
     this.loginForm = this.formBuilder.group({
@@ -43,8 +45,10 @@ export class LoginComponent implements OnInit {
       this.loginService
         .login(this.username.value, this.password.value)
         .subscribe(
-          _ => {
+          jwtToken => {
             this.loginError = "";
+            this.authenticatinService
+              .authenticate(jwtToken);
           },
           (e: HttpErrorResponse) => {
             if (e.status === 0) {
