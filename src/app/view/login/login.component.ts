@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private authenticatinService: AuthenticationService,
+    private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder
   ) {
     this.loginForm = this.formBuilder.group({
@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   get username() {
@@ -47,7 +48,7 @@ export class LoginComponent implements OnInit {
         .subscribe(
           jwtToken => {
             this.loginError = "";
-            this.authenticatinService
+            this.authenticationService
               .authenticate(jwtToken);
           },
           (e: HttpErrorResponse) => {

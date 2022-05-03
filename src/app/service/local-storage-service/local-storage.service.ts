@@ -16,4 +16,8 @@ export class LocalStorageService {
   set jwtToken(jwtToken: string | null) {
     localStorage.setItem(LocalStorageService.JWT_TOKEN, jwtToken!);
   }
+
+  clear() {
+    localStorage.clear();
+  }
 }
