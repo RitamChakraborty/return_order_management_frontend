@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   currentOrders: OrderTable[] = [];
   pastOrders: OrderTable[] = [];
   displayedColumns: string[] = ['orderId', 'component', 'type', 'quantity', 'cost', 'dateOfDelivery'];
+  loadingOrders: boolean = true;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -32,15 +33,21 @@ export class HomeComponent implements OnInit {
   }
 
   getOrders() {
+    this.loadingOrders = true;
     this.orderService.getOrders().subscribe(value => {
-      console.log(value);
-      this.currentOrders = value
-        .filter(i => i.processResponse.dateOfDelivery >= new Date())
-        .map(this.orderToOrderTable);
-      this.currentOrders = value
-        .filter(i => i.processResponse.dateOfDelivery < new Date())
-        .map(this.orderToOrderTable);
-    });
+        console.log(value);
+        this.currentOrders = value
+          .filter(i => i.processResponse.dateOfDelivery >= new Date())
+          .map(this.orderToOrderTable);
+        this.currentOrders = value
+          .filter(i => i.processResponse.dateOfDelivery < new Date())
+          .map(this.orderToOrderTable);
+      }, (e) => {
+        this.authenticationService.logOut();
+      },
+      () => {
+        this.loadingOrders = false;
+      });
   }
 
   ngOnInit(): void {

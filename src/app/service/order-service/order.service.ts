@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Order} from "../../model/order";
-import {Observable, of} from "rxjs";
+import {delay, Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +31,6 @@ export class OrderService {
       }
     ];
 
-    return of(orders);
+    return of(orders).pipe(delay(2000));
   }
 }
