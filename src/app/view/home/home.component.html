@@ -54,8 +54,10 @@
             <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
           </table>
         </ng-container>
-        <ng-container *ngIf="currentOrders.length === 0" class="no-order">
-          No current order
+        <ng-container *ngIf="currentOrders.length === 0">
+          <div class="no-order">
+            <mat-card-subtitle>No current orders</mat-card-subtitle>
+          </div>
         </ng-container>
       </mat-tab>
       <mat-tab label="Past Orders">
@@ -91,7 +93,9 @@
           </table>
         </ng-container>
         <ng-container *ngIf="pastOrders.length === 0">
-          <div class="no-order">No past order</div>
+          <div class="no-order">
+            <mat-card-subtitle>No past orders</mat-card-subtitle>
+          </div>
         </ng-container>
       </mat-tab>
     </mat-tab-group>
