@@ -1,3 +1,8 @@
+@use '@angular/material' as mat;
+@import '../../../theme';
+
+@include mat.core();
+
 mat-sidenav-container {
   height: 100vh;
 }
@@ -46,5 +51,28 @@ mat-sidenav-content {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
+  }
+
+  .no-order {
+    margin: 1rem 0;
+    text-align: center;
+    color: mat.get-color-from-palette($primary-palette);
+  }
+
+  table {
+    width: 150%;
+  }
+
+  @media screen and (min-width: 600px) {
+    table {
+      width: 100%;
+    }
+
+    .new-order {
+      position: fixed;
+      transform: translate(50%, -50%);
+      bottom: 1rem;
+      right: 50%;
+    }
   }
 }

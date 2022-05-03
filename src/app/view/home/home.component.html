@@ -23,58 +23,76 @@
     </button>
     <mat-tab-group>
       <mat-tab label="Current Orders">
-        <div *ngIf="currentOrders.length > 0">
-          <table>
-            <thead>
-            <tr>
-              <th>Order Id</th>
-              <th>Component</th>
-              <th>Quantity</th>
-              <th>Cost</th>
-              <th>Delivery Date</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let order of currentOrders">
-              <td>{{order?.orderId}}</td>
-              <td>{{order?.processRequest?.componentName}}</td>
-              <td>{{order?.processRequest?.quantity}}</td>
-              <td>{{getTotalCost(order)}}</td>
-              <td>{{order?.processResponse?.dateOfDelivery | date: 'dd/MM/yyyy'}}</td>
-            </tr>
-            </tbody>
+        <ng-container *ngIf="currentOrders.length > 0">
+          <table [dataSource]="currentOrders" mat-table>
+            <ng-container matColumnDef="orderId">
+              <th *matHeaderCellDef mat-header-cell>Order Id</th>
+              <td *matCellDef="let element" mat-cell>{{element.orderId}}</td>
+            </ng-container>
+            <ng-container matColumnDef="component">
+              <th *matHeaderCellDef mat-header-cell>Component</th>
+              <td *matCellDef="let element" mat-cell>{{element.component}}</td>
+            </ng-container>
+            <ng-container matColumnDef="type">
+              <th *matHeaderCellDef mat-header-cell>Type</th>
+              <td *matCellDef="let element" mat-cell>{{element.type}}</td>
+            </ng-container>
+            <ng-container matColumnDef="quantity">
+              <th *matHeaderCellDef mat-header-cell>Quantity</th>
+              <td *matCellDef="let element" mat-cell>{{element.quantity}}</td>
+            </ng-container>
+            <ng-container matColumnDef="cost">
+              <th *matHeaderCellDef mat-header-cell>Cost</th>
+              <td *matCellDef="let element" mat-cell>{{element.cost}}</td>
+            </ng-container>
+            <ng-container matColumnDef="dateOfDelivery">
+              <th *matHeaderCellDef mat-header-cell>Delivery Date</th>
+              <td *matCellDef="let element" mat-cell>{{element.dateOfDelivery | date: 'shortDate'}}</td>
+            </ng-container>
+
+            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
           </table>
-        </div>
-        <div *ngIf="currentOrders.length === 0">
+        </ng-container>
+        <ng-container *ngIf="currentOrders.length === 0" class="no-order">
           No current order
-        </div>
+        </ng-container>
       </mat-tab>
       <mat-tab label="Past Orders">
-        <div *ngIf="pastOrders.length > 0">
-          <table>
-            <thead>
-            <tr>
-              <th>Order Id</th>
-              <th>Component</th>
-              <th>Quantity</th>
-              <th>Cost</th>
-              <th>Delivery Date</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let order of pastOrders">
-              <td>{{order?.orderId}}</td>
-              <td>{{order?.processRequest?.componentName}}</td>
-              <td>{{order?.processRequest?.quantity}}</td>
-              <td>{{getTotalCost(order)}}</td>
-              <td>{{order?.processResponse?.dateOfDelivery}} | date</td>
-            </tr>
-            </tbody>
+        <ng-container *ngIf="pastOrders.length > 0">
+          <table [dataSource]="pastOrders" mat-table>
+            <ng-container matColumnDef="orderId">
+              <th *matHeaderCellDef mat-header-cell>Order Id</th>
+              <td *matCellDef="let element" mat-cell>{{element.orderId}}</td>
+            </ng-container>
+            <ng-container matColumnDef="component">
+              <th *matHeaderCellDef mat-header-cell>Component</th>
+              <td *matCellDef="let element" mat-cell>{{element.component}}</td>
+            </ng-container>
+            <ng-container matColumnDef="type">
+              <th *matHeaderCellDef mat-header-cell>Type</th>
+              <td *matCellDef="let element" mat-cell>{{element.type}}</td>
+            </ng-container>
+            <ng-container matColumnDef="quantity">
+              <th *matHeaderCellDef mat-header-cell>Quantity</th>
+              <td *matCellDef="let element" mat-cell>{{element.quantity}}</td>
+            </ng-container>
+            <ng-container matColumnDef="cost">
+              <th *matHeaderCellDef mat-header-cell>Cost</th>
+              <td *matCellDef="let element" mat-cell>{{element.cost}}</td>
+            </ng-container>
+            <ng-container matColumnDef="dateOfDelivery">
+              <th *matHeaderCellDef mat-header-cell>Delivery Date</th>
+              <td *matCellDef="let element" mat-cell>{{element.dateOfDelivery | date: 'shortDate'}}</td>
+            </ng-container>
+
+            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
           </table>
-        </div>
-        <div *ngIf="pastOrders.length === 0">
-          No past order
-        </div>
+        </ng-container>
+        <ng-container *ngIf="pastOrders.length === 0">
+          <div class="no-order">No past order</div>
+        </ng-container>
       </mat-tab>
     </mat-tab-group>
   </mat-sidenav-content>

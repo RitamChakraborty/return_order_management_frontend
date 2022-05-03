@@ -3,6 +3,7 @@ import {OrderService} from "../../service/order-service/order.service";
 import {Order} from "../../model/order";
 import {AuthenticationService} from "../../service/authentication-service/authentication.service";
 import {User} from "../../model/user";
+import {OrderTable} from "../../model/order-table";
 
 @Component({
   selector: 'app-home',
@@ -14,8 +15,9 @@ export class HomeComponent implements OnInit {
   firstName: string = "";
   lastName: string = "";
   email: string = "";
-  currentOrders: Order[] = [];
-  pastOrders: Order[] = [];
+  currentOrders: OrderTable[] = [];
+  pastOrders: OrderTable[] = [];
+  displayedColumns: string[] = ['orderId', 'component', 'type', 'quantity', 'cost', 'dateOfDelivery'];
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -32,20 +34,13 @@ export class HomeComponent implements OnInit {
   getOrders() {
     this.orderService.getOrders().subscribe(value => {
       console.log(value);
-      this.currentOrders = value.filter(i => i.processResponse.dateOfDelivery >= new Date());
-      this.currentOrders = value.filter(i => i.processResponse.dateOfDelivery < new Date());
+      this.currentOrders = value
+        .filter(i => i.processResponse.dateOfDelivery >= new Date())
+        .map(this.orderToOrderTable);
+      this.currentOrders = value
+        .filter(i => i.processResponse.dateOfDelivery < new Date())
+        .map(this.orderToOrderTable);
     });
-  }
-
-  getTotalCost(order: Order): number {
-    if (order &&
-      order.processResponse &&
-      order.processResponse.processingCharge &&
-      order.processResponse.packagingAndDeliveryCharge) {
-      return order.processResponse.processingCharge + order.processResponse.packagingAndDeliveryCharge;
-    }
-
-    return 0;
   }
 
   ngOnInit(): void {
@@ -54,10 +49,6 @@ export class HomeComponent implements OnInit {
     this.lastName = user.lastName;
     this.email = user.email;
     this.getOrders();
-  }
-
-  get userAccountFavLetter(): string {
-    return this.firstName[0];
   }
 
   toggleSidenav() {
@@ -70,5 +61,25 @@ export class HomeComponent implements OnInit {
 
   newOrder() {
 
+  }
+
+  orderToOrderTable(order: Order): OrderTable {
+    const componentType: string = order.processRequest.componentType;
+    const type: string = componentType[0].toUpperCase() + componentType.substring(1);
+
+    return {
+      orderId: order.orderId,
+      component: order.processRequest.componentName,
+      type: type,
+      quantity: order.processRequest.quantity,
+      cost: order &&
+      order.processResponse &&
+      order.processResponse.processingCharge &&
+      order.processResponse.packagingAndDeliveryCharge
+        ? order.processResponse.processingCharge
+        + order.processResponse.packagingAndDeliveryCharge
+        : 0,
+      dateOfDelivery: order.processResponse.dateOfDelivery
+    };
   }
 }
