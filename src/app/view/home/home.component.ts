@@ -4,6 +4,8 @@ import {Order} from "../../model/order";
 import {AuthenticationService} from "../../service/authentication-service/authentication.service";
 import {User} from "../../model/user";
 import {OrderTable} from "../../model/order-table";
+import {MatDialog} from "@angular/material/dialog";
+import {NewOrderComponent} from "../../component/new-order/new-order.component";
 
 @Component({
   selector: 'app-home',
@@ -22,8 +24,17 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private dialog: MatDialog,
   ) {
+  }
+
+  ngOnInit(): void {
+    const user: User = this.authenticationService.user;
+    this.firstName = user.firstName;
+    this.lastName = user.lastName;
+    this.email = user.email;
+    this.getOrders();
   }
 
   get fullName(): string {
@@ -50,24 +61,12 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
-    const user: User = this.authenticationService.user;
-    this.firstName = user.firstName;
-    this.lastName = user.lastName;
-    this.email = user.email;
-    this.getOrders();
-  }
-
   toggleSidenav() {
     this.sidenavVisible = !this.sidenavVisible;
   }
 
   logout() {
     this.authenticationService.logOut();
-  }
-
-  newOrder() {
-
   }
 
   orderToOrderTable(order: Order): OrderTable {
@@ -88,5 +87,17 @@ export class HomeComponent implements OnInit {
         : 0,
       dateOfDelivery: order.processResponse.dateOfDelivery
     };
+  }
+
+  newOrder() {
+    const dialogRef = this.dialog.open(NewOrderComponent, {
+      disableClose: false
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== undefined) {
+        console.log(result);
+      }
+    })
   }
 }

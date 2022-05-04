@@ -10,12 +10,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from "./module/material/material.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
+import {NewOrderComponent} from './component/new-order/new-order.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    NewOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +30,7 @@ import {MatCardModule} from "@angular/material/card";
     MatCardModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [NewOrderComponent]
 })
 export class AppModule { }
