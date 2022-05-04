@@ -1,9 +1,56 @@
 <h2 mat-dialog-title>New Order</h2>
 <div mat-dialog-content>
-  form
+  <form [formGroup]="newOrderForm!">
+    <mat-form-field appearance="outline" hideRequiredMarker>
+      <mat-label>Name</mat-label>
+      <input formControlName="name" id="name" matInput name="name" required type="text">
+      <mat-error *ngIf="name && name.touched && name.invalid">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" hideRequiredMarker>
+      <mat-label>Contact number</mat-label>
+      <input formControlName="contactNumber" id="contactNumber" matInput maxlength="10" name="contactNumber"
+             placeholder="9876543210"
+             required type="tel">
+      <mat-hint *ngIf="contactNumber && contactNumber.value" align="end">{{contactNumber.value.length}} / 10</mat-hint>
+      <mat-error *ngIf="contactNumber && contactNumber.touched && contactNumber.invalid">
+        Please enter a valid phone number
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" hideRequiredMarker>
+      <mat-label>Component Name</mat-label>
+      <input formControlName="componentName" id="componentName" matInput name="componentName" required type="text">
+      <mat-error *ngIf="componentName && componentName.touched && componentName.invalid">
+        Component name is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" hideRequiredMarker>
+      <mat-label>Component Type</mat-label>
+      <mat-select formControlName="componentType" name="componentType">
+        <mat-option *ngFor="let componentType of componentTypes" [value]="componentType.value">
+          {{componentType.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" hideRequiredMarker>
+      <mat-label>Quantity</mat-label>
+      <input formControlName="quantity" id="quantity" matInput max="100" min="1" name="quantity" required step="1"
+             type="number" value="1">
+      <mat-error *ngIf="quantity && quantity.touched && quantity.invalid && quantity.value < 1">
+        Quantity must be more than 0
+      </mat-error>
+      <mat-error *ngIf="quantity && quantity.touched && quantity.invalid && quantity.value > 100">
+        Quantity must be less than equal to 100
+      </mat-error>
+    </mat-form-field>
+
+  </form>
 </div>
 <div mat-dialog-actions>
-  <button (click)="onSubmit()" color="primary" mat-button>Signup</button>
+  <button (click)="onSubmit()" [disabled]="newOrderForm && newOrderForm.invalid" color="primary" mat-flat-button>
+    Place Order
+  </button>
   <button (click)="onCancel()" mat-stroked-button>Cancel</button>
 </div>
 

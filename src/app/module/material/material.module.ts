@@ -12,6 +12,8 @@ import {MatTableModule} from "@angular/material/table";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatSelectModule} from "@angular/material/select";
+import {MatSliderModule} from "@angular/material/slider";
 
 const MaterialComponents = [
   MatButtonModule,
@@ -26,7 +28,9 @@ const MaterialComponents = [
   MatTableModule,
   MatProgressSpinnerModule,
   MatTooltipModule,
-  MatDialogModule
+  MatDialogModule,
+  MatSelectModule,
+  MatSliderModule
 ];
 
 @NgModule({
