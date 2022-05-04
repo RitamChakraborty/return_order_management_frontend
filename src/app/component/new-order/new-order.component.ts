@@ -9,7 +9,6 @@ import {ComponentType} from "../../model/component-type";
   styleUrls: ['./new-order.component.scss'],
 })
 export class NewOrderComponent implements OnInit {
-  valid: boolean = false;
   newOrderForm?: FormGroup;
   componentTypes: ComponentType[] = [{
     value: 'integral-item',
@@ -36,12 +35,11 @@ export class NewOrderComponent implements OnInit {
   }
 
   onSubmit() {
-    this.valid = true;
-    this.dialogRef.close(this.valid);
+    this.dialogRef.close(this.newOrderForm);
   }
 
   onCancel() {
-    this.dialogRef.close(this.valid);
+    this.dialogRef.close();
   }
 
   get name() {
