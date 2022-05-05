@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from 
 import {AuthenticationService} from "../../service/authentication-service/authentication.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-signup',
@@ -16,7 +17,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.signupForm = formBuilder.group({
       firstName: ['', [Validators.required, Validators.maxLength(30)]],
@@ -61,13 +63,14 @@ export class SignupComponent implements OnInit {
       .signup(this.signupForm?.value)
       .subscribe(
         (result) => {
-          console.log(result);
         }, (e: HttpErrorResponse) => {
           if (e.status === 400) {
             this.signupError = "Customer already exists, please sign in";
           }
         }, () => {
           this.signupError = "";
+          this.showSnackBar("Signup successful");
+          this.router.navigate(['login']);
         }
       );
   }
@@ -90,5 +93,11 @@ export class SignupComponent implements OnInit {
           notSame: true
         }
     };
+  }
+
+  showSnackBar(message: string) {
+    this.snackBar.open(message, "Dismiss", {
+      duration: 3000
+    });
   }
 }
