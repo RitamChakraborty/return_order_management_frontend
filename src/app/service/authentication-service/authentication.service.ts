@@ -6,6 +6,7 @@ import {User} from "../../model/user";
 import {LocalStorageService} from "../local-storage-service/local-storage.service";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
+import {NewCustomer} from "../../model/new-customer";
 
 @Injectable({
   providedIn: 'root'
@@ -78,5 +79,12 @@ export class AuthenticationService {
     this._isLoggedIn = false;
     this.localStorageService.clear();
     this.router.navigate(["login"]);
+  }
+
+  signup(newCustomer: NewCustomer): Observable<User> {
+    return this.httpClient.post<User>(
+      environment.apiUrl + '/signup',
+      newCustomer
+    );
   }
 }

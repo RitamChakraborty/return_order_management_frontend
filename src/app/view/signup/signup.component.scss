@@ -1,0 +1,17 @@
+mat-card {
+  width: min(80%, 700px);
+  margin: 3rem auto;
+
+  mat-card-actions {
+    display: flex;
+    justify-content: space-evenly;
+
+    button {
+      width: 30%;
+    }
+  }
+}
+
+@media screen and (min-width: 600px) {
+
+}
