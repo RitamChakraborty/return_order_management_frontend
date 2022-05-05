@@ -13,15 +13,23 @@
       <mat-form-field appearance="outline">
         <mat-label>First Name</mat-label>
         <input formControlName="firstName" id="firstName" matInput name="firstName" required type="text">
-        <mat-error *ngIf="firstName && firstName.touched && firstName.invalid">
+        <mat-error
+          *ngIf="firstName && firstName.touched && firstName.invalid && !firstName.value">
           First name is required
+        </mat-error>
+        <mat-error
+          *ngIf="firstName && firstName.touched && firstName.invalid && firstName.value">
+          First name can not be more than 30 characters
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Last Name</mat-label>
         <input formControlName="lastName" id="lastName" matInput name="lastName" required type="text">
-        <mat-error *ngIf="lastName && lastName.touched && lastName.invalid">
+        <mat-error *ngIf="lastName && lastName.touched && lastName.invalid && !lastName.value">
           Last name is required
+        </mat-error>
+        <mat-error *ngIf="lastName && lastName.touched && lastName.invalid && lastName.value">
+          Last name can not be more than 30 character
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
@@ -30,28 +38,67 @@
                required type="tel">
         <mat-hint *ngIf="contactNumber && contactNumber.value" align="end">{{contactNumber.value.length}} / 10
         </mat-hint>
-        <mat-error *ngIf="contactNumber && contactNumber.touched && contactNumber.invalid">
+        <mat-error *ngIf="contactNumber && contactNumber.touched && contactNumber.invalid && !contactNumber.value">
           Contact number is required
+        </mat-error>
+        <mat-error *ngIf="contactNumber && contactNumber.touched && contactNumber.invalid && contactNumber.value">
+          Please enter a valid phone number
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input formControlName="email" id="email" matInput name="email" required type="email">
-        <mat-error *ngIf="email && email.touched && email.invalid">
+        <mat-error *ngIf="email && email.touched && email.invalid && !email.value">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="email && email.touched && email.invalid && email.value">
           Please enter a valid email
         </mat-error>
       </mat-form-field>
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" style="padding-bottom: 5rem">
         <mat-label>Password</mat-label>
         <input formControlName="password" id="password" matInput name="password" required type="password">
-        <mat-error *ngIf="password && password.touched && password.invalid">
-          Please enter a valid password
+        <mat-hint align="end">
+          <ul>
+            <li>Must be 8 characters long</li>
+            <li>Must be less than 17 characters</li>
+            <li>Must contain an upper case letter</li>
+            <li>Must contain a lower case letter</li>
+            <li>Must contain a digit</li>
+            <li>Must contain a special character</li>
+          </ul>
+        </mat-hint>
+        <mat-error *ngIf="password && password.touched && password.invalid && !password.value">
+          Password is required
+        </mat-error>
+        <mat-error *ngIf="password && password.touched && password.invalid && password.value">
+          <ul>
+            <li>Must be 8 characters long</li>
+            <li>Must be less than 17 characters</li>
+            <li>Must contain an upper case letter</li>
+            <li>Must contain a lower case letter</li>
+            <li>Must contain a digit</li>
+            <li>Must contain a special character</li>
+          </ul>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Confirm Password</mat-label>
+        <input formControlName="confirmPassword" id="confirmPassword" matInput name="confirmPassword" required
+               type="password">
+        <mat-error
+          *ngIf="confirmPassword && confirmPassword.touched &&  confirmPassword.invalid && !confirmPassword.value">
+          Confirm password is required
+        </mat-error>
+        <mat-error
+          *ngIf="confirmPassword && confirmPassword.touched &&  confirmPassword.invalid && confirmPassword.value">
+          Password did not match
         </mat-error>
       </mat-form-field>
     </form>
   </mat-card-content>
   <mat-card-actions>
-    <button (click)="signup()" color="primary" mat-flat-button>Signup</button>
+    <button (click)="signup()" [disabled]="signupForm!.invalid" color="primary" mat-flat-button>Signup</button>
     <button (click)="cancel()" mat-stroked-button>Cancel</button>
   </mat-card-actions>
 </mat-card>

@@ -1,6 +1,12 @@
 mat-card {
   width: min(80%, 700px);
-  margin: 3rem auto;
+  margin: 1rem auto;
+
+  mat-card-content {
+    mat-form-field {
+      width: 100%;
+    }
+  }
 
   mat-card-actions {
     display: flex;
@@ -13,5 +19,7 @@ mat-card {
 }
 
 @media screen and (min-width: 600px) {
-
+  mat-card {
+    margin: 3rem auto;
+  }
 }

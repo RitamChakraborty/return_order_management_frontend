@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {AuthenticationService} from "../../service/authentication-service/authentication.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
@@ -19,15 +19,17 @@ export class SignupComponent implements OnInit {
     private router: Router
   ) {
     this.signupForm = formBuilder.group({
-      firstName: ['', [Validators.required, Validators.max(30)]],
-      lastName: ['', [Validators.required, Validators.max(30)]],
+      firstName: ['', [Validators.required, Validators.maxLength(30)]],
+      lastName: ['', [Validators.required, Validators.maxLength(30)]],
       contactNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/g)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,16}$/g)]]
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,16}$/)]],
+      confirmPassword: ['', [Validators.required, this.confirmPasswordValidation()]]
     })
   }
 
-  ngOnInit(): void {
+  get confirmPassword() {
+    return this.signupForm?.get('confirmPassword');
   }
 
   get firstName() {
@@ -50,6 +52,10 @@ export class SignupComponent implements OnInit {
     return this.signupForm?.get('password');
   }
 
+  ngOnInit(): void {
+    this.signupError = '';
+  }
+
   signup() {
     this.authenticationService
       .signup(this.signupForm?.value)
@@ -68,5 +74,21 @@ export class SignupComponent implements OnInit {
 
   cancel() {
     this.router.navigate(["login"]);
+  }
+
+  confirmPasswordValidation(): ValidatorFn {
+    return (control): ValidationErrors | null => {
+      return (
+        this.confirmPassword &&
+        this.confirmPassword.touched &&
+        this.confirmPassword.value !== '' &&
+        this.password !== null &&
+        this.password !== undefined &&
+        this.confirmPassword.value === this.password.value
+      )
+        ? null : {
+          notSame: true
+        }
+    };
   }
 }
