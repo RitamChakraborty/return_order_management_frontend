@@ -11,13 +11,15 @@ import {MaterialModule} from "./module/material/material.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import {NewOrderComponent} from './component/new-order/new-order.component';
+import {SignupComponent} from './view/signup/signup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    NewOrderComponent
+    NewOrderComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
