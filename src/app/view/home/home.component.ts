@@ -112,7 +112,7 @@ export class HomeComponent implements OnInit {
           }, (e) => {
 
           }, () => {
-
+            this.getOrders();
           });
       }
     })

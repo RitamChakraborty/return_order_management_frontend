@@ -38,10 +38,12 @@ export class OrderService {
     const jwtToken: string = this.localStorageService.jwtToken!;
     const httpHeader: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
+      'Accept': 'application/json',
       'Authorization': `Bearer ${jwtToken}`
     });
-    return this.httpClient.get<ProcessResponse[]>(
+    return this.httpClient.post<ProcessResponse[]>(
       environment.apiUrl + `/component-processing/api/process-detail`,
+      processRequest,
       {
         headers: httpHeader
       }
