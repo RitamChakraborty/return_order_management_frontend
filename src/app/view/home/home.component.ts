@@ -8,6 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {NewOrderComponent} from "../../component/new-order/new-order.component";
 import {ProcessRequest} from "../../model/process-request";
 import * as moment from 'moment'
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private orderService: OrderService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -108,13 +110,19 @@ export class HomeComponent implements OnInit {
         this.orderService
           .newOrder(processRequest)
           .subscribe((value) => {
-            console.log(value);
           }, (e) => {
-
+            this.showSnackBar("There was some problem placing your order");
           }, () => {
             this.getOrders();
+            this.showSnackBar("New order placed successfully");
           });
       }
     })
+  }
+
+  showSnackBar(message: string) {
+    this.snackBar.open(message, "Dismiss", {
+      duration: 3000
+    });
   }
 }
