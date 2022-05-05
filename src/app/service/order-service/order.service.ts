@@ -5,6 +5,8 @@ import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {AuthenticationService} from "../authentication-service/authentication.service";
 import {LocalStorageService} from "../local-storage-service/local-storage.service";
+import {ProcessRequest} from "../../model/process-request";
+import {ProcessResponse} from "../../model/process-response";
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +28,20 @@ export class OrderService {
     });
     return this.httpClient.get<Order[]>(
       environment.apiUrl + `/component-processing/api/order-details?customerEmail=${customerEmail}`,
+      {
+        headers: httpHeader
+      }
+    );
+  }
+
+  newOrder(processRequest: ProcessRequest): Observable<ProcessResponse[]> {
+    const jwtToken: string = this.localStorageService.jwtToken!;
+    const httpHeader: HttpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${jwtToken}`
+    });
+    return this.httpClient.get<ProcessResponse[]>(
+      environment.apiUrl + `/component-processing/api/process-detail`,
       {
         headers: httpHeader
       }

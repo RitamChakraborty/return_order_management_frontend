@@ -6,6 +6,8 @@ import {User} from "../../model/user";
 import {OrderTable} from "../../model/order-table";
 import {MatDialog} from "@angular/material/dialog";
 import {NewOrderComponent} from "../../component/new-order/new-order.component";
+import {ProcessRequest} from "../../model/process-request";
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-home',
@@ -46,12 +48,11 @@ export class HomeComponent implements OnInit {
   getOrders() {
     this.loadingOrders = true;
     this.orderService.getOrders().subscribe(value => {
-        console.log(value);
         this.currentOrders = value
-          .filter(i => i.processResponse.dateOfDelivery >= new Date())
+          .filter(i => moment(Date.parse(i.processResponse.dateOfDelivery)).isSameOrAfter(moment()))
           .map(this.orderToOrderTable);
-        this.currentOrders = value
-          .filter(i => i.processResponse.dateOfDelivery < new Date())
+        this.pastOrders = value
+          .filter(i => moment(Date.parse(i.processResponse.dateOfDelivery)).isBefore(moment()))
           .map(this.orderToOrderTable);
       }, (e) => {
         this.authenticationService.logOut();
@@ -85,7 +86,7 @@ export class HomeComponent implements OnInit {
         ? order.processResponse.processingCharge
         + order.processResponse.packagingAndDeliveryCharge
         : 0,
-      dateOfDelivery: order.processResponse.dateOfDelivery
+      dateOfDelivery: new Date(Date.parse(order.processResponse.dateOfDelivery))
     };
   }
 
@@ -97,7 +98,22 @@ export class HomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result !== undefined) {
+        const processRequest: ProcessRequest = {
+          name: result.value.name,
+          contactNumber: result.value.contactNumber,
+          componentName: result.value.componentName,
+          componentType: result.value.componentType,
+          quantity: result.value.quantity
+        }
         this.orderService
+          .newOrder(processRequest)
+          .subscribe((value) => {
+            console.log(value);
+          }, (e) => {
+
+          }, () => {
+
+          });
       }
     })
   }
