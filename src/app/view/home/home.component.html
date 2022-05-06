@@ -31,7 +31,11 @@
             <table [dataSource]="currentOrders" mat-table>
               <ng-container matColumnDef="orderId">
                 <th *matHeaderCellDef mat-header-cell>Order Id</th>
-                <td *matCellDef="let element" mat-cell>{{element.orderId}}</td>
+                <td *matCellDef="let element" mat-cell>
+                  <button (click)="showOrder(element.orderId)" color="primary" mat-button>
+                    {{element.orderId}}
+                  </button>
+                </td>
               </ng-container>
               <ng-container matColumnDef="component">
                 <th *matHeaderCellDef mat-header-cell>Component</th>

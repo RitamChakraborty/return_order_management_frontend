@@ -12,6 +12,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import {NewOrderComponent} from './component/new-order/new-order.component';
 import {SignupComponent} from './view/signup/signup.component';
+import {OrderComponent} from './component/order/order.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {SignupComponent} from './view/signup/signup.component';
     HomeComponent,
     LoginComponent,
     NewOrderComponent,
-    SignupComponent
+    SignupComponent,
+    OrderComponent,
   ],
   imports: [
     BrowserModule,

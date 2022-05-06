@@ -1,0 +1,48 @@
+<h2 mat-dialog-tile>Order Details</h2>
+<mat-dialog-content>
+  <div class="tile">
+    <div class="mat-body">Order ID</div>
+    <div class="mat-caption">{{order.orderId}}</div>
+  </div>
+  <div class="tile">
+    <div class="mat-body">Name</div>
+    <div class="mat-caption">{{order.processRequest.name}}</div>
+  </div>
+  <div class="tile">
+    <div class="mat-body">Contact Number</div>
+    <div class="mat-caption">{{order.processRequest.contactNumber}}</div>
+  </div>
+  <div class="tile">
+    <div class="mat-body">Component Name</div>
+    <div class="mat-caption">{{order.processRequest.componentName}}</div>
+  </div>
+  <div class="tile">
+    <div class="mat-body">Component Name</div>
+    <div class="mat-caption">{{order.processRequest.componentType}}</div>
+  </div>
+  <div class="tile">
+    <div class="mat-body">Quantity</div>
+    <div class="mat-caption">{{order.processRequest.quantity}}</div>
+  </div>
+  <div class="tile">
+    <div class="mat-body">Processing Charge</div>
+    <div class="mat-caption">{{order.processResponse.processingCharge}}</div>
+  </div>
+  <div class="tile">
+    <div class="mat-body">Packing and Delivery Charge</div>
+    <div class="mat-caption">{{order.processResponse.packagingAndDeliveryCharge}}</div>
+  </div>
+  <div class="tile">
+    <div class="mat-body">Total Charge</div>
+    <div class="mat-caption">{{order.processResponse.processingCharge + order.processResponse.processingCharge}}</div>
+  </div>
+  <div class="tile">
+    <div class="mat-body">Delivery Date</div>
+    <div class="mat-caption">{{order.processResponse.dateOfDelivery}}</div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button color="primary" mat-dialog-close mat-stroked-button>
+    Close
+  </button>
+</mat-dialog-actions>

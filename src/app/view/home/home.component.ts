@@ -9,6 +9,7 @@ import {NewOrderComponent} from "../../component/new-order/new-order.component";
 import {ProcessRequest} from "../../model/process-request";
 import * as moment from 'moment'
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {OrderComponent} from "../../component/order/order.component";
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,7 @@ export class HomeComponent implements OnInit {
   firstName: string = "";
   lastName: string = "";
   email: string = "";
+  orders: Order[] = [];
   currentOrders: OrderTable[] = [];
   pastOrders: OrderTable[] = [];
   displayedColumns: string[] = ['orderId', 'component', 'type', 'quantity', 'cost', 'dateOfDelivery'];
@@ -50,6 +52,7 @@ export class HomeComponent implements OnInit {
   getOrders() {
     this.loadingOrders = true;
     this.orderService.getOrders().subscribe(value => {
+        this.orders = value;
         this.currentOrders = value
           .filter(i => moment(Date.parse(i.processResponse.dateOfDelivery)).isSameOrAfter(moment()))
           .map(this.orderToOrderTable);
@@ -123,6 +126,15 @@ export class HomeComponent implements OnInit {
   showSnackBar(message: string) {
     this.snackBar.open(message, "Dismiss", {
       duration: 3000
+    });
+  }
+
+  showOrder(orderId: number) {
+    const dialogRef = this.dialog.open(OrderComponent, {
+      disableClose: false,
+      autoFocus: false,
+      width: 'min(80%, 500px)',
+      data: this.orders.filter((order) => order.orderId === orderId)[0]
     });
   }
 }
