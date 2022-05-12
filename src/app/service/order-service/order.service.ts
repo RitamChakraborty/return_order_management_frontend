@@ -34,14 +34,14 @@ export class OrderService {
     );
   }
 
-  newOrder(processRequest: ProcessRequest): Observable<ProcessResponse[]> {
+  newOrder(processRequest: ProcessRequest): Observable<ProcessResponse> {
     const jwtToken: string = this.localStorageService.jwtToken!;
     const httpHeader: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': `Bearer ${jwtToken}`
     });
-    return this.httpClient.post<ProcessResponse[]>(
+    return this.httpClient.post<ProcessResponse>(
       environment.apiUrl + `/component-processing/api/process-detail`,
       processRequest,
       {

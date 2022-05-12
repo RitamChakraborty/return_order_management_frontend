@@ -3,6 +3,10 @@ import {MatDialogRef} from "@angular/material/dialog";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ComponentType} from "../../model/component-type";
 import {StepperOrientation} from "@angular/cdk/stepper";
+import {OrderService} from "../../service/order-service/order.service";
+import {ProcessRequest} from "../../model/process-request";
+import {ProcessResponse} from "../../model/process-response";
+import {OrderRequest} from "../../model/order-request";
 
 @Component({
   selector: 'app-new-order',
@@ -12,6 +16,9 @@ import {StepperOrientation} from "@angular/cdk/stepper";
 export class NewOrderComponent implements OnInit {
   newOrderForm?: FormGroup;
   paymentForm?: FormGroup;
+  processingOrder?: boolean = false;
+  processingOrderFailed: boolean = false;
+  processResponse?: ProcessResponse;
   componentTypes: ComponentType[] = [{
     value: 'integral-item',
     viewValue: 'Integral Item'
@@ -22,7 +29,8 @@ export class NewOrderComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<NewOrderComponent>,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private orderService: OrderService
   ) {
     this.newOrderForm = formBuilder.group({
       name: ['', Validators.required],
@@ -37,10 +45,6 @@ export class NewOrderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  onSubmit() {
-    this.dialogRef.close(this.newOrderForm);
   }
 
   onCancel() {
@@ -77,5 +81,40 @@ export class NewOrderComponent implements OnInit {
     }
 
     return "horizontal";
+  }
+
+  get processRequest(): ProcessRequest {
+    return {
+      name: this.newOrderForm?.value.name,
+      contactNumber: this.newOrderForm?.value.contactNumber,
+      componentName: this.newOrderForm?.value.componentName,
+      componentType: this.newOrderForm?.value.componentType,
+      quantity: this.newOrderForm?.value.quantity
+    };
+  }
+
+  processOrder() {
+    this.processingOrder = true;
+    const processRequest: ProcessRequest = this.processRequest;
+    this.orderService
+      .newOrder(processRequest)
+      .subscribe((value) => {
+          this.processResponse = value;
+        }, (e) => {
+          this.processingOrder = false;
+          this.processingOrderFailed = true;
+        }, () => {
+          this.processingOrder = false;
+          this.processingOrderFailed = false;
+        }
+      );
+  }
+
+  placeOrder() {
+    const orderRequest: OrderRequest = {
+      processRequest: this.processRequest,
+      processResponse: this.processResponse!
+    }
+    this.dialogRef.close(orderRequest);
   }
 }

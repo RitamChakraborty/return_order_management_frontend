@@ -6,7 +6,6 @@ import {User} from "../../model/user";
 import {OrderTable} from "../../model/order-table";
 import {MatDialog} from "@angular/material/dialog";
 import {NewOrderComponent} from "../../component/new-order/new-order.component";
-import {ProcessRequest} from "../../model/process-request";
 import * as moment from 'moment'
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {OrderComponent} from "../../component/order/order.component";
@@ -104,22 +103,24 @@ export class HomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result !== undefined) {
-        const processRequest: ProcessRequest = {
-          name: result.value.name,
-          contactNumber: result.value.contactNumber,
-          componentName: result.value.componentName,
-          componentType: result.value.componentType,
-          quantity: result.value.quantity
-        }
-        this.orderService
-          .newOrder(processRequest)
-          .subscribe((value) => {
-          }, (e) => {
-            this.showSnackBar("There was some problem placing your order");
-          }, () => {
-            this.getOrders();
-            this.showSnackBar("New order placed successfully");
-          });
+        console.log(result);
+        // const processRequest: ProcessRequest = {
+        //   name: result.value.name,
+        //   contactNumber: result.value.contactNumber,
+        //   componentName: result.value.componentName,
+        //   componentType: result.value.componentType,
+        //   quantity: result.value.quantity
+        // }
+        // this.orderService
+        //   .newOrder(processRequest)
+        //   .subscribe((value) => {
+        //     }, (e) => {
+        //       this.showSnackBar("There was some problem placing your order");
+        //     }, () => {
+        //       this.getOrders();
+        //       this.showSnackBar("New order placed successfully");
+        //     }
+        //   );
       }
     })
   }
