@@ -104,6 +104,7 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result !== undefined) {
         console.log(result);
+
         // const processRequest: ProcessRequest = {
         //   name: result.value.name,
         //   contactNumber: result.value.contactNumber,

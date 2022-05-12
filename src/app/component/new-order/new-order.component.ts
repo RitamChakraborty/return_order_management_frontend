@@ -6,7 +6,7 @@ import {StepperOrientation} from "@angular/cdk/stepper";
 import {OrderService} from "../../service/order-service/order.service";
 import {ProcessRequest} from "../../model/process-request";
 import {ProcessResponse} from "../../model/process-response";
-import {OrderRequest} from "../../model/order-request";
+import {NewOrderResponse} from "../../model/new-order-response";
 
 @Component({
   selector: 'app-new-order',
@@ -111,10 +111,16 @@ export class NewOrderComponent implements OnInit {
   }
 
   placeOrder() {
-    const orderRequest: OrderRequest = {
+    const totalCost: number = this.processResponse?.processingCharge! +
+      this.processResponse?.packagingAndDeliveryCharge!;
+    const newOrderResponse: NewOrderResponse = {
+      requestId: this.processResponse?.requestId!,
+      creditCardNumber: this.paymentForm?.value.creditCardNumber,
+      creditCardLimit: totalCost + 1,
+      processingCharge: totalCost,
       processRequest: this.processRequest,
       processResponse: this.processResponse!
     }
-    this.dialogRef.close(orderRequest);
+    this.dialogRef.close(newOrderResponse);
   }
 }
