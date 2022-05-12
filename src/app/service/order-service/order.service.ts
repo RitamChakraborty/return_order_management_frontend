@@ -20,14 +20,13 @@ export class OrderService {
   }
 
   getOrders(): Observable<Order[]> {
-    const customerEmail: string = this.authenticationService.user.email;
     const jwtToken: string = this.localStorageService.jwtToken!;
     const httpHeader: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${jwtToken}`
     });
     return this.httpClient.get<Order[]>(
-      environment.apiUrl + `/component-processing/api/order-details?customerEmail=${customerEmail}`,
+      environment.apiUrl + `/component-processing/api/order-details`,
       {
         headers: httpHeader
       }
