@@ -1,8 +1,8 @@
 <div mat-dialog-content>
-  <mat-stepper #stepper linear>
+  <mat-stepper #stepper [orientation]="getOrientation()" linear>
     <mat-step [stepControl]="newOrderForm!">
       <form [formGroup]="newOrderForm!">
-        <ng-template matStepLabel>Order Details</ng-template>
+        <ng-template matStepLabel>Details</ng-template>
         <mat-form-field appearance="outline" hideRequiredMarker>
           <mat-label>Name</mat-label>
           <input formControlName="name" id="name" matInput name="name" required type="text">
@@ -52,16 +52,50 @@
         <button [disabled]="newOrderForm && newOrderForm.invalid" color="primary" mat-flat-button matStepperNext>
           Next
         </button>
-        <button (click)="onCancel()" mat-stroked-button>Cancel</button>
       </mat-dialog-actions>
     </mat-step>
-    <mat-step [editable]="newOrderForm && newOrderForm.valid">
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button (click)="stepper.reset()" mat-button>Reset</button>
-      </div>
+    <mat-step [editable]="newOrderForm && newOrderForm.valid" [stepControl]="paymentForm!">
+      <ng-template matStepLabel>Payment</ng-template>
+      <form [formGroup]="paymentForm!">
+        <mat-form-field appearance="outline" hideRequiredMarker>
+          <mat-label>Credit Card Number</mat-label>
+          <input
+            formControlName="creditCardNumber"
+            id="creditCardNumber"
+            mask="0000 0000 0000 0000"
+            matInput
+            maxlength="19"
+            minlength="16"
+            name="creditCardNumber"
+            required>
+          <mat-error
+            *ngIf="creditCardNumber && creditCardNumber.touched && creditCardNumber.invalid && !creditCardNumber.value">
+            Credit card number is required
+          </mat-error>
+          <mat-error
+            *ngIf="creditCardNumber && creditCardNumber.touched && creditCardNumber.invalid && creditCardNumber.value">
+            Please enter valid credit card number
+          </mat-error>
+        </mat-form-field>
+      </form>
+      <mat-dialog-actions>
+        <button [disabled]="paymentForm && paymentForm.invalid" color="primary" mat-flat-button matStepperNext>
+          Next
+        </button>
+        <button mat-stroked-button matStepperPrevious>
+          Back
+        </button>
+      </mat-dialog-actions>
+    </mat-step>
+    <mat-step [editable]="newOrderForm && newOrderForm.valid && paymentForm && paymentForm.valid">
+      <ng-template matStepLabel>Confirm</ng-template>
+      <p>Do you want to confirm the order?</p>
+      <mat-dialog-actions>
+        <button (click)="onSubmit()" [disabled]="newOrderForm && newOrderForm.invalid" color="primary" mat-flat-button>
+          Place Order
+        </button>
+        <button (click)="onCancel()" mat-stroked-button>Cancel</button>
+      </mat-dialog-actions>
     </mat-step>
   </mat-stepper>
 </div>

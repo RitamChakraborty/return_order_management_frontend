@@ -34,7 +34,7 @@ const MaterialComponents = [
   MatSelectModule,
   MatSliderModule,
   MatSnackBarModule,
-  MatStepperModule
+  MatStepperModule,
 ];
 
 @NgModule({

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ComponentType} from "../../model/component-type";
+import {StepperOrientation} from "@angular/cdk/stepper";
 
 @Component({
   selector: 'app-new-order',
@@ -10,6 +11,7 @@ import {ComponentType} from "../../model/component-type";
 })
 export class NewOrderComponent implements OnInit {
   newOrderForm?: FormGroup;
+  paymentForm?: FormGroup;
   componentTypes: ComponentType[] = [{
     value: 'integral-item',
     viewValue: 'Integral Item'
@@ -29,6 +31,9 @@ export class NewOrderComponent implements OnInit {
       componentType: ['integral-item', Validators.required],
       quantity: [1, [Validators.min(1), Validators.max(100)]]
     });
+    this.paymentForm = formBuilder.group({
+      creditCardNumber: ['', Validators.pattern(/^\d{16}$/)]
+    })
   }
 
   ngOnInit(): void {
@@ -60,5 +65,17 @@ export class NewOrderComponent implements OnInit {
 
   get quantity() {
     return this.newOrderForm?.get('quantity');
+  }
+
+  get creditCardNumber() {
+    return this.paymentForm?.get('creditCardNumber');
+  }
+
+  getOrientation(): StepperOrientation {
+    if (window.innerHeight > window.innerWidth) {
+      return "vertical";
+    }
+
+    return "horizontal";
   }
 }

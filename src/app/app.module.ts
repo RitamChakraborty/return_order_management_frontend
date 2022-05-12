@@ -13,6 +13,11 @@ import {MatCardModule} from "@angular/material/card";
 import {NewOrderComponent} from './component/new-order/new-order.component';
 import {SignupComponent} from './view/signup/signup.component';
 import {OrderComponent} from './component/order/order.component';
+import {IConfig, NgxMaskModule} from 'ngx-mask'
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 @NgModule({
   declarations: [
@@ -31,10 +36,12 @@ import {OrderComponent} from './component/order/order.component';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCardModule
+    MatCardModule,
+    NgxMaskModule.forRoot(maskConfig),
   ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [NewOrderComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -99,6 +99,7 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(NewOrderComponent, {
       disableClose: false,
       autoFocus: false,
+      panelClass: 'new-order-dialog'
     });
 
     dialogRef.afterClosed().subscribe((result) => {

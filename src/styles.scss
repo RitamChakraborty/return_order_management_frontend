@@ -11,3 +11,13 @@ body {
 .mat-form-field-wrapper {
   padding-bottom: 1rem !important;
 }
+
+.new-order-dialog mat-dialog-container {
+  padding: 0 !important;
+}
+
+@media screen and (min-width: 600px) {
+  .new-order-dialog mat-dialog-container {
+    padding: 1.5rem !important;
+  }
+}
