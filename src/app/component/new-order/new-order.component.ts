@@ -97,7 +97,7 @@ export class NewOrderComponent implements OnInit {
     this.processingOrder = true;
     const processRequest: ProcessRequest = this.processRequest;
     this.orderService
-      .newOrder(processRequest)
+      .processOrder(processRequest)
       .subscribe((value) => {
           this.processResponse = value;
         }, (e) => {

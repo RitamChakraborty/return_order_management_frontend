@@ -9,6 +9,8 @@ import {NewOrderComponent} from "../../component/new-order/new-order.component";
 import * as moment from 'moment'
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {OrderComponent} from "../../component/order/order.component";
+import {NewOrderResponse} from "../../model/new-order-response";
+import {OrderRequest} from "../../model/order-request";
 
 @Component({
   selector: 'app-home',
@@ -103,25 +105,35 @@ export class HomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result !== undefined) {
-        console.log(result);
-
-        // const processRequest: ProcessRequest = {
-        //   name: result.value.name,
-        //   contactNumber: result.value.contactNumber,
-        //   componentName: result.value.componentName,
-        //   componentType: result.value.componentType,
-        //   quantity: result.value.quantity
-        // }
-        // this.orderService
-        //   .newOrder(processRequest)
-        //   .subscribe((value) => {
-        //     }, (e) => {
-        //       this.showSnackBar("There was some problem placing your order");
-        //     }, () => {
-        //       this.getOrders();
-        //       this.showSnackBar("New order placed successfully");
-        //     }
-        //   );
+        const newOrderResponse: NewOrderResponse = result;
+        this.orderService
+          .processPayment(newOrderResponse)
+          .subscribe(
+            (value) => {
+            },
+            (e) => {
+              this.showSnackBar("There was some problem processing payment");
+            },
+            () => {
+              const orderRequest: OrderRequest = {
+                processRequest: newOrderResponse.processRequest,
+                processResponse: newOrderResponse.processResponse
+              };
+              this.orderService
+                .placeOrder(orderRequest)
+                .subscribe(
+                  (value) => {
+                  },
+                  (e) => {
+                    this.showSnackBar("There was some problem placing your order");
+                  },
+                  () => {
+                    this.getOrders();
+                    this.showSnackBar("Order placed successfully");
+                  }
+                )
+            }
+          );
       }
     })
   }

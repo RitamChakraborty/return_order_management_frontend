@@ -5,8 +5,10 @@ import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {AuthenticationService} from "../authentication-service/authentication.service";
 import {LocalStorageService} from "../local-storage-service/local-storage.service";
-import {ProcessRequest} from "../../model/process-request";
 import {ProcessResponse} from "../../model/process-response";
+import {NewOrderResponse} from "../../model/new-order-response";
+import {OrderRequest} from "../../model/order-request";
+import {ProcessRequest} from "../../model/process-request";
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +35,7 @@ export class OrderService {
     );
   }
 
-  newOrder(processRequest: ProcessRequest): Observable<ProcessResponse> {
+  processOrder(processRequest: ProcessRequest): Observable<ProcessResponse> {
     const jwtToken: string = this.localStorageService.jwtToken!;
     const httpHeader: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -43,6 +45,42 @@ export class OrderService {
     return this.httpClient.post<ProcessResponse>(
       environment.apiUrl + `/component-processing/api/process-detail`,
       processRequest,
+      {
+        headers: httpHeader
+      }
+    );
+  }
+
+  placeOrder(orderRequest: OrderRequest): Observable<ProcessResponse> {
+    const jwtToken: string = this.localStorageService.jwtToken!;
+    const httpHeader: HttpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${jwtToken}`
+    });
+    return this.httpClient.post<ProcessResponse>(
+      environment.apiUrl + `/component-processing/api/place-order`,
+      orderRequest,
+      {
+        headers: httpHeader
+      }
+    );
+  }
+
+  processPayment(newOrderResponse: NewOrderResponse): Observable<string> {
+    const jwtToken: string = this.localStorageService.jwtToken!;
+    const httpHeader: HttpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${jwtToken}`
+    });
+    const paymentProcessingApiUrl = `${environment.apiUrl}/component-processing/api/complete-processing` +
+      `?requestId=${encodeURIComponent(newOrderResponse.requestId)}` +
+      `&creditCardNumber=${newOrderResponse.creditCardNumber}` +
+      `&creditLimit=${newOrderResponse.creditCardLimit}` +
+      `&processingCharge=${newOrderResponse.processingCharge}`;
+    return this.httpClient.get<string>(
+      paymentProcessingApiUrl,
       {
         headers: httpHeader
       }
