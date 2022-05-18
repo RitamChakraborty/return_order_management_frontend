@@ -55,31 +55,20 @@
           Please enter a valid email
         </mat-error>
       </mat-form-field>
-      <mat-form-field appearance="outline" style="padding-bottom: 5rem">
+      <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
         <input formControlName="password" id="password" matInput name="password" required type="password">
-        <mat-hint align="end">
-          <ul>
-            <li>Must be 8 characters long</li>
-            <li>Must be less than 17 characters</li>
-            <li>Must contain an upper case letter</li>
-            <li>Must contain a lower case letter</li>
-            <li>Must contain a digit</li>
-            <li>Must contain a special character</li>
-          </ul>
-        </mat-hint>
+        <mat-icon
+          *ngIf="password && password.touched && password.invalid && password.value"
+          matSuffix
+          matTooltip="Should be 8 to 16 characters long, contain at least one uppercase, lowercase letter, digit and special character"
+        >info
+        </mat-icon>
         <mat-error *ngIf="password && password.touched && password.invalid && !password.value">
           Password is required
         </mat-error>
         <mat-error *ngIf="password && password.touched && password.invalid && password.value">
-          <ul>
-            <li>Must be 8 characters long</li>
-            <li>Must be less than 17 characters</li>
-            <li>Must contain an upper case letter</li>
-            <li>Must contain a lower case letter</li>
-            <li>Must contain a digit</li>
-            <li>Must contain a special character</li>
-          </ul>
+          Please enter a valid password
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">

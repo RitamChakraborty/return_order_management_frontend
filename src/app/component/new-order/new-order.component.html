@@ -120,12 +120,12 @@
             </mat-error>
           </mat-form-field>
         </form>
-        <mat-dialog-actions>
-          <button [disabled]="paymentForm && paymentForm.invalid" color="primary" mat-flat-button matStepperNext>
-            Next
-          </button>
+        <mat-dialog-actions class="payment-action">
           <button mat-stroked-button matStepperPrevious>
             Back
+          </button>
+          <button [disabled]="paymentForm && paymentForm.invalid" color="primary" mat-flat-button matStepperNext>
+            Next
           </button>
         </mat-dialog-actions>
       </ng-container>

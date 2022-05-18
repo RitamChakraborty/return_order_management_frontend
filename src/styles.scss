@@ -1,3 +1,5 @@
+@import 'theme';
+
 html, body {
   height: 100%;
 }
@@ -14,6 +16,11 @@ body {
 
 .new-order-dialog mat-dialog-container {
   padding: 0 !important;
+}
+
+.tile {
+  padding: 0.5rem 1rem;
+  background: rgba(228, 255, 84, 0.2);
 }
 
 @media screen and (min-width: 600px) {

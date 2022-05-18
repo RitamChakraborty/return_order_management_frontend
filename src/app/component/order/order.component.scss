@@ -1,13 +1,23 @@
 @import '../../../theme';
 
+h2 {
+  background-color: $primary-color;
+  padding: 0.5rem 1rem;
+  color: white;
+}
+
 mat-dialog-content {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.75rem;
+}
 
-  .tile {
-    border-bottom: $accent-color 1px solid;
-  }
+mat-dialog-actions {
+  justify-content: flex-end;
+}
+
+.payment-action {
+  justify-content: space-between !important;
 }
 
 @media screen and (min-width: 600px) {
