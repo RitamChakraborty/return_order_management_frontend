@@ -1,7 +1,5 @@
-@import '../../../theme';
-
 h2 {
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   padding: 0.5rem 1rem;
   color: white;
 }

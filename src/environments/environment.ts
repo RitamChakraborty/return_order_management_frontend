@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: "http://localhost:8181"
+  apiUrl: "http://ritam-gateway-lb-1082556400.ap-south-1.elb.amazonaws.com"
 };

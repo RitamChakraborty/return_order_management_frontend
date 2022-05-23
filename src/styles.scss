@@ -1,5 +1,9 @@
 @import 'theme';
 
+:root {
+  --primary-color: #{$primary-color};
+}
+
 html, body {
   height: 100%;
 }
