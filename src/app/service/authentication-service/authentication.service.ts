@@ -48,7 +48,7 @@ export class AuthenticationService {
     };
 
     return this.httpClient.post<JWTToken>(
-      `${environment.apiUrl}/login`,
+      `${environment.apiUrl}/authorization/api/login`,
       body.toString(),
       options
     );
@@ -61,7 +61,7 @@ export class AuthenticationService {
     });
 
     this.httpClient.get<User>(
-      environment.apiUrl + "/authenticate",
+      environment.apiUrl + "/authorization/api/authenticate",
       {
         headers: httpHeader
       }
@@ -83,7 +83,7 @@ export class AuthenticationService {
 
   signup(newCustomer: NewCustomer): Observable<User> {
     return this.httpClient.post<User>(
-      environment.apiUrl + '/signup',
+      environment.apiUrl + '/authorization/api/signup',
       newCustomer
     );
   }
