@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist/return_order_management"
   },
   "private": true,
   "dependencies": {
