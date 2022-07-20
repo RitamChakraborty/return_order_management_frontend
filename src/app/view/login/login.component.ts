@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
           },
           (e: HttpErrorResponse) => {
             if (e.status === 0) {
-              this.loginError = "Check your internet connection";
+              this.loginError = "Something went wrong";
             } else {
               this.loginError = "Incorrect username or password"
             }
