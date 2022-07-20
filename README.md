@@ -12,16 +12,28 @@ For the UI, [Angular Material](https://material.angular.io/) and [SCSS](https://
 
 ### Running Locally
 
-Must have *Node 16* or above and *Angular CLI* installed. Make sure to update the [environments.ts](./src/environments/environment.ts) file to pass the correct API gateway url. 
+Must have *Node 16* or above and *Angular CLI* installed. Make sure to update
+the [environments.ts](./src/environments/environment.ts) file to pass the correct API gateway url.
 
 ```sh
 ng serve
 ```
 
-Visit [localhost:4200](http://localhost:4200) to see the application running. 
+Visit [localhost:4200](http://localhost:4200) to see the application running.
+
+### Build
+
+A docker image is uploaded
+to [DockerHub@ritamchakraborty/return_order_frontend](https://hub.docker.com/repository/docker/ritamchakraborty/return_order_frontend)
+.
 
 ### Deploy
 
-The website is deployed to github pages through [gh-pages](https://github.com/tschaub/gh-pages) npm package.
+Deployed to GitHub pages through [gh-pages](https://github.com/tschaub/gh-pages) npm package.
+
+### CI/CD
+
+A [GitHub Workflow](./.github/workflows/deploy-gh-pages.yml) has been set up to deploy automatically to GitHub Pages
+with [github-pages-deploy-action](https://github.com/JamesIves/github-pages-deploy-action).
 
 Checkout it out [here](https://ritamchakraborty.github.io/return_order_management_frontend/).
